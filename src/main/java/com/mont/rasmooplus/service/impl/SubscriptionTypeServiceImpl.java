@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mont.rasmooplus.dto.SubscriptionTypeDto;
 import com.mont.rasmooplus.exception.NotFoundException;
+import com.mont.rasmooplus.mapper.SubscriptionTypeMapper;
 import com.mont.rasmooplus.model.SubscriptionType;
 import com.mont.rasmooplus.repository.SubscriptionTypeRepository;
 import com.mont.rasmooplus.service.SubscriptionTypeService;
@@ -27,7 +29,14 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     }
 
     @Override
-    public SubscriptionType update(Long id, SubscriptionType obj) {
+    public SubscriptionType create(SubscriptionTypeDto dto) {
+        // TODO Auto-generated method stub
+        return repository.save(SubscriptionTypeMapper.fromDtoToEntity(dto));
+    }
+
+
+    @Override
+    public SubscriptionType update(Long id, SubscriptionTypeDto dto) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
@@ -37,6 +46,8 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
+
+
 
 
 }
