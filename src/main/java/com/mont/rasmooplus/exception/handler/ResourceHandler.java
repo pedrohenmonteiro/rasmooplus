@@ -38,6 +38,6 @@ public class ResourceHandler extends ResponseEntityExceptionHandler {
             .status(HttpStatus.BAD_REQUEST.value())
         .build();
         
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exResponse);
     }
 }
