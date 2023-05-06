@@ -16,16 +16,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-/*
- * CREATE TABLE if not exists `subscriptions_type`(
-                                                   `subscriptions_type_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                                   `name` CHAR(255) NOT NULL,
-                                                   `access_months` INT ,
-                                                   `price` DECIMAL(10,2) NOT NULL,
-                                                   `product_key` CHAR(255)
-);
-
- */
 @Entity
 @Table(name = "subscriptions_type")
 @Data

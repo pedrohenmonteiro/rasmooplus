@@ -17,8 +17,7 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     @Override
     public List<SubscriptionType> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return repository.findAll();
     }
 
     @Override
