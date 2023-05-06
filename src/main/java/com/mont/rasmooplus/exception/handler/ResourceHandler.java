@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.mont.rasmooplus.exception.BadRequestException;
 import com.mont.rasmooplus.exception.ExceptionResponse;
 import com.mont.rasmooplus.exception.NotFoundException;
 
@@ -22,7 +23,20 @@ public class ResourceHandler extends ResponseEntityExceptionHandler {
             .message(ex.getMessage())
             .details(req.getDescription(false))
             .status(HttpStatus.NOT_FOUND.value())
-            .build();
+        .build();
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exResponse);
+    }
+    
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ExceptionResponse> badRequestExceptionHandler(Exception ex, WebRequest req) {
+        var exResponse = ExceptionResponse.builder()
+            .timestamp(Instant.now())
+            .message(ex.getMessage())
+            .details(req.getDescription(false))
+            .status(HttpStatus.BAD_REQUEST.value())
+        .build();
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exResponse);
     }
