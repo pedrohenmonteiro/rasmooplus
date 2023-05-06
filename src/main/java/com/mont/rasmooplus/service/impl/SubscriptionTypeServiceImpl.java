@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.model.SubscriptionType;
 import com.mont.rasmooplus.repository.SubscriptionTypeRepository;
 import com.mont.rasmooplus.service.SubscriptionTypeService;
@@ -22,8 +23,7 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     @Override
     public SubscriptionType findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Resource Not Found"));
     }
 
     @Override

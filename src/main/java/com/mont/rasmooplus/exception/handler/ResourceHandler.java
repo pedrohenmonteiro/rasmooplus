@@ -17,7 +17,13 @@ public class ResourceHandler extends ResponseEntityExceptionHandler {
     
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionResponse> notFoundExceptionHandler(Exception ex, WebRequest req) {
-        var exResponse = new ExceptionResponse(Instant.now(), ex.getMessage(), req.getDescription(false));
+        var exResponse = ExceptionResponse.builder()
+            .timestamp(Instant.now())
+            .message(ex.getMessage())
+            .details(req.getDescription(false))
+            .status(HttpStatus.NOT_FOUND.value())
+            .build();
+        
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exResponse);
     }
 }
