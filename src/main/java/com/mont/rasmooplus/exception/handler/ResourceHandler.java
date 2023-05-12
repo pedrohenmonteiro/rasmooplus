@@ -22,7 +22,7 @@ import com.mont.rasmooplus.exception.NotFoundException;
 
 
 @RestControllerAdvice
-public class ResourceHandler extends ResponseEntityExceptionHandler {
+public class ResourceHandler {
     
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleNotFoundExceptionHandler(Exception ex, WebRequest req) {
@@ -50,30 +50,29 @@ public class ResourceHandler extends ResponseEntityExceptionHandler {
     }
     
 
-    // @ExceptionHandler(MethodArgumentNotValidException.class)
-    //     @Override
-    //     public ResponseEntity<Object> handleMethodArgumentNotValid(
-	// 		MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest req) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+        public ResponseEntity<Object> handleMethodArgumentNotValidException(
+			MethodArgumentNotValidException ex,  WebRequest req) {
         
-    //     Map<String, String> messages = new HashMap<>();
+        Map<String, String> messages = new HashMap<>();
         
-    //     ex.getBindingResult().getAllErrors().forEach(error -> {
-    //         String field = ((FieldError) error).getField();
-    //         String message = error.getDefaultMessage();
+        ex.getBindingResult().getAllErrors().forEach(error -> {
+            String field = ((FieldError) error).getField();
+            String message = error.getDefaultMessage();
 
-    //         messages.put(field, message);
-    //     });
+            messages.put(field, message);
+        });
     
         
-    //     var exResponse = ExceptionResponse.builder()
-    //         .timestamp(Instant.now())
-    //         .message(Arrays.toString(messages.entrySet().toArray()))
-    //         .details(req.getDescription(false))
-    //         .status(HttpStatus.BAD_REQUEST.value())
-    //     .build();
+        var exResponse = ExceptionResponse.builder()
+            .timestamp(Instant.now())
+            .message(Arrays.toString(messages.entrySet().toArray()))
+            .details(req.getDescription(false))
+            .status(HttpStatus.BAD_REQUEST.value())
+        .build();
 
-    //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exResponse);
-    // }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exResponse);
+    }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionResponse> handleDataIntegrityViolationException(Exception ex, WebRequest req) {
