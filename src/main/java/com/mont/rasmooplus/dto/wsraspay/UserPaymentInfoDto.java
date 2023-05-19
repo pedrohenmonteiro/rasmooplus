@@ -31,7 +31,7 @@ public class UserPaymentInfoDto {
     private String cardSecurityCode;
     private BigDecimal price;
 
-    private Long instalments;
+    private Long installments;
     private LocalDate dtPayment = LocalDate.now();
 
     @NotNull(message = "must be informed")
