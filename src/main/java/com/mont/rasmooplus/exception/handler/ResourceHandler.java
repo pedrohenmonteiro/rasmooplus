@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.mont.rasmooplus.exception.BadRequestException;
+import com.mont.rasmooplus.exception.BusinessException;
 import com.mont.rasmooplus.exception.ExceptionResponse;
 import com.mont.rasmooplus.exception.NotFoundException;
 
@@ -84,6 +85,18 @@ public class ResourceHandler {
         .build();
         
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exResponse);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ExceptionResponse> handleBusinessException(Exception ex, WebRequest req) {
+        var exResponse = ExceptionResponse.builder()
+            .timestamp(Instant.now())
+            .message(ex.getMessage())
+            .details(req.getDescription(false))
+            .status(HttpStatus.CONFLICT.value())
+        .build();
+        
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exResponse);
     }
  
 }
