@@ -17,20 +17,20 @@ import com.mont.rasmooplus.dto.wsraspay.PaymentDto;
 @Component
 public class WsRaspayIntegration {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final HttpHeaders headers;
 
-    public WsRaspayIntegration() {
+    public WsRaspayIntegration(){
         restTemplate = new RestTemplate();
+        headers = getHttpHeaders();
     }
 
-    
+
     public CustomerDto createCustomer(CustomerDto dto) {
         try {
-            HttpHeaders headers = getHttpHeaders();
-            HttpEntity<CustomerDto> request = new HttpEntity<>(dto, headers);
-            ResponseEntity<CustomerDto> response = 
-                restTemplate.exchange("https://ws-raspay.herokuapp.com/ws-raspay/v1/customer", HttpMethod.POST, request, CustomerDto.class);
-                
+            HttpEntity<CustomerDto> request = new HttpEntity<>(dto,this.headers);
+            ResponseEntity<CustomerDto> response =
+                    restTemplate.exchange("http://localhost:8081/ws-raspay/v1/customer", HttpMethod.POST, request, CustomerDto.class);
             return response.getBody();
         } catch (Exception e) {
             throw e;
@@ -38,21 +38,35 @@ public class WsRaspayIntegration {
     }
 
 
-    
-    public OrderDto createOrder(OrderDto dto) {
-        return null;
-    }
 
+    public OrderDto createOrder(OrderDto dto) {
+        try {
+            HttpEntity<OrderDto> request = new HttpEntity<>(dto,this.headers);
+            ResponseEntity<OrderDto> response =
+                    restTemplate.exchange("http://localhost:8081/ws-raspay/v1/order", HttpMethod.POST, request, OrderDto.class);
+            return response.getBody();
+        } catch (Exception e) {
+            throw e;
+        }
+
+        
+    }
     public Boolean processPayment(PaymentDto dto) {
-        return null;
+        try {
+            HttpEntity<PaymentDto> request = new HttpEntity<>(dto,this.headers);
+            ResponseEntity<Boolean> response =
+                    restTemplate.exchange("http://localhost:8081/ws-raspay/v1/payment/credit-card/", HttpMethod.POST, request, Boolean.class);
+            return response.getBody();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     private HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         String credential = "rasmooplus:r@sm00";
         String base64 = new String (Base64.encodeBase64(credential.getBytes()));
-        headers.add("Authorization", "Basic "+base64);
+        headers.add("Authorization","Basic "+base64);
         return headers;
     }
-
 }
