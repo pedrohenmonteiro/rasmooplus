@@ -62,13 +62,16 @@ public class PaymentInfoServiceImpl implements PaymentInfoService{
             //save payment informations
          UserPaymentInfo userPaymentInfo = UserPaymentInfoMapper.fromDtoToEntity(dto.getUserPaymentInfoDto(), userEntity);
          userPaymentInfoRepository.save(userPaymentInfo);
-        }
-        //send account created email
+
+            //send account created email
         mailIntegration.send(userEntity.getEmail(), "Aqui está suas credenciais de acesso:\n Login: "
-         + userEntity.getEmail() + "\n Senha: alunorasmoo", "Conta criada com sucesso!");
+        + userEntity.getEmail() + "\n Senha: alunorasmoo", "Conta criada com sucesso!");
+         return true;
+        }
+     
         //return success or not of the payment
 
-        return null;
+        return false;
     }
     
 }
