@@ -1,6 +1,6 @@
 package com.mont.rasmooplus.mapper;
 
-import com.mont.rasmooplus.dto.wsraspay.UserPaymentInfoDto;
+import com.mont.rasmooplus.dto.UserPaymentInfoDto;
 import com.mont.rasmooplus.model.User;
 import com.mont.rasmooplus.model.UserPaymentInfo;
 
@@ -13,6 +13,7 @@ public class UserPaymentInfoMapper {
         .cardExpirationYear(dto.getCardExpirationYear())
         .cardSecurityCode(dto.getCardSecurityCode())
         .price(dto.getPrice())
+        .installments(dto.getInstallments())
         .dtPayment(dto.getDtPayment())
         .user(user)
         .build();

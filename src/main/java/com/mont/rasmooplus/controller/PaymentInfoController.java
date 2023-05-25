@@ -19,7 +19,7 @@ public class PaymentInfoController {
     private PaymentInfoService paymentInfoService;
     
     @PostMapping("/process")
-    public ResponseEntity<Boolean> process(@RequestBody PaymentProcessDto dto) {
+    public ResponseEntity<Boolean> process(@RequestBody  PaymentProcessDto dto){
         return ResponseEntity.ok().body(paymentInfoService.process(dto));
     }
 }

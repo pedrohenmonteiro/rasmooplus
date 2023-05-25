@@ -1,4 +1,4 @@
-package com.mont.rasmooplus.dto.wsraspay;
+package com.mont.rasmooplus.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

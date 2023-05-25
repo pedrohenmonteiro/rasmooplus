@@ -31,7 +31,7 @@ CREATE TABLE if not exists `user_payment_info`(
                                                   `card_expiration_year` INT NOT NULL,
                                                   `card_security_code` CHAR(255) NOT NULL,
                                                   `price` DECIMAL(10,2) NOT NULL,
-                                                  `instalments` INT NOT NULL,
+                                                  `installments` INT NOT NULL,
                                                   `dt_payment` DATE NOT NULL,
                                                   `user_id` INT
 );

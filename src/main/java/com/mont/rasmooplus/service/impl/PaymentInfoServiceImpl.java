@@ -66,11 +66,9 @@ public class PaymentInfoServiceImpl implements PaymentInfoService{
             //send account created email
         mailIntegration.send(userEntity.getEmail(), "Aqui está suas credenciais de acesso:\n Login: "
         + userEntity.getEmail() + "\n Senha: alunorasmoo", "Conta criada com sucesso!");
+         //return success or not of the payment
          return true;
         }
-     
-        //return success or not of the payment
-
         return false;
     }
     
