@@ -13,30 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mont.rasmooplus.dto.LoginDto;
+import com.mont.rasmooplus.dto.TokenDto;
 import com.mont.rasmooplus.exception.BadRequestException;
+import com.mont.rasmooplus.service.AuthenticationService;
 import com.mont.rasmooplus.service.TokenService;
+
 
 
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-    
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenService tokenService;
+    private AuthenticationService authenticationService;
 
     @PostMapping
-    public ResponseEntity<String> auth(@RequestBody @Valid LoginDto loginDto) {
-        UsernamePasswordAuthenticationToken userPassAuth = new UsernamePasswordAuthenticationToken(loginDto.getUserName(), loginDto.getPassword());
-
-       try {
-       Authentication auth = authenticationManager.authenticate(userPassAuth);
-        String token = tokenService.getToken(auth);
-        return ResponseEntity.ok().body(token);
-       } catch (Exception e) {
-        throw new BadRequestException("error formatting token " + e.getMessage());
-       }
+    public ResponseEntity<TokenDto> auth(@RequestBody @Valid LoginDto dto) {
+        return ResponseEntity.ok().body(authenticationService.auth(dto));
     }
+
 }

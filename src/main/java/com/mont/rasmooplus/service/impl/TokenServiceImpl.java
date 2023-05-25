@@ -13,7 +13,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
-public class TokenServiceImpl implements TokenService{
+public class TokenServiceImpl implements TokenService {
 
     @Value("${webservices.rasplus.jwt.expiration}")
     private String expiration;
@@ -27,12 +27,11 @@ public class TokenServiceImpl implements TokenService{
         Date today = new Date();
         Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
         return Jwts.builder()
-        .setIssuer("API Rasmoo Plus")
-        .setSubject(user.getId().toString())
-        .setIssuedAt(today)
-        .setExpiration(expirationDate)
-        .signWith(SignatureAlgorithm.HS256, secret)
-        .compact();
+                .setIssuer("API Rasmoo Plus")
+                .setSubject(user.getId().toString())
+                .setIssuedAt(today)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
     }
-    
 }

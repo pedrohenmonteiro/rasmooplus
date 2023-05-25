@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -27,25 +27,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    //responsável pela configuracao de autorizacao -> Acesso a URLs
+    //responsável pela configuração de autorizacao -> Acesso a URL's
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/subscription-type").permitAll()
-        .antMatchers(HttpMethod.GET, "/subscription-type/*").permitAll().anyRequest().authenticated().and().csrf().disable()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/subscription-type").permitAll()
+                .antMatchers(HttpMethod.GET,"/subscription-type/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/auth").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
-    //responsável pela configuracao de autenticacao -> login e senha
+
+    //responsável pela configuração de autenticação -> login e senha
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-   //responsável pelo acesso de arquivos estáticos -> hmtl, css, js, imagens
+    //responsável pelo acesso à arquivos estáticos -> html, css, js, imagens
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // TODO Auto-generated method stub
     }
-
 
 }
