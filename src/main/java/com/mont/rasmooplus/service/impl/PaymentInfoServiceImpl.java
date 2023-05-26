@@ -4,12 +4,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mont.rasmooplus.dto.PaymentProcessDto;
 import com.mont.rasmooplus.dto.wsraspay.CustomerDto;
 import com.mont.rasmooplus.dto.wsraspay.OrderDto;
 import com.mont.rasmooplus.dto.wsraspay.PaymentDto;
+import com.mont.rasmooplus.enums.UserTypeEnum;
 import com.mont.rasmooplus.exception.BusinessException;
 import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.integration.MailIntegration;
@@ -33,8 +36,8 @@ import com.mont.rasmooplus.service.PaymentInfoService;
 @Service
 public class PaymentInfoServiceImpl implements PaymentInfoService{
 
-
-    private final Long ALUNO = 3L;
+    @Value("${webservices.rasplus.default.password}")
+    private  String defaultPassword;
 
     @Autowired
     private UserRepository userRepository;
@@ -76,14 +79,14 @@ public class PaymentInfoServiceImpl implements PaymentInfoService{
          UserPaymentInfo userPaymentInfo = UserPaymentInfoMapper.fromDtoToEntity(dto.getUserPaymentInfoDto(), userEntity);
          userPaymentInfoRepository.save(userPaymentInfo);
 
-         var userType = userTypeRepository.findById(ALUNO).orElseThrow(() -> new NotFoundException("User type not found"));
+         var userType = userTypeRepository.findById(UserTypeEnum.ALUNO.getId()).orElseThrow(() -> new NotFoundException("User type not found"));
 
-         UserCredentials userCredentials = new UserCredentials(null, userEntity.getName(), "alunorasmoo", userType);   
+         UserCredentials userCredentials = new UserCredentials(null, userEntity.getEmail(), new BCryptPasswordEncoder().encode(defaultPassword), userType);   
          userDetailsRepository.save(userCredentials);   
 
             //send account created email
         mailIntegration.send(userEntity.getEmail(), "Aqui está suas credenciais de acesso:\n Login: "
-        + userEntity.getEmail() + "\n Senha: alunorasmoo", "Conta criada com sucesso!");
+        + userEntity.getEmail() + "\n Senha: " + defaultPassword, "Conta criada com sucesso!");
          //return success or not of the payment
          return true;
         }
