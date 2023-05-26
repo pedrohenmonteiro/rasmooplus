@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+    private UserDetailsService userService;
     
     @Test
     void contextLoads() {
-        userService.sendRecoveryCode("teste@gmail.com");
+        userService.sendRecoveryCode("4536c8a0ad@fireboxmail.lol");
     }
 }

@@ -11,10 +11,10 @@ import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.mapper.UserMapper;
 import com.mont.rasmooplus.model.jpa.User;
 import com.mont.rasmooplus.model.jpa.UserType;
-import com.mont.rasmooplus.model.redis.RecoveryCode;
+import com.mont.rasmooplus.model.redis.UserRecoveryCode;
 import com.mont.rasmooplus.repository.jpa.UserRepository;
 import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
-import com.mont.rasmooplus.repository.redis.RecoveryCodeRepository;
+import com.mont.rasmooplus.repository.redis.UserRecoveryCodeRepository;
 import com.mont.rasmooplus.service.UserService;
 
 @Service
@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserTypeRepository userTypeRepository;
 
-    private final RecoveryCodeRepository recoveryCodeRepository;
+    private final UserRecoveryCodeRepository recoveryCodeRepository;
 
-    UserServiceImpl(UserRepository userRepository, UserTypeRepository userTypeRepository, RecoveryCodeRepository recoveryCodeRepository) {
+    UserServiceImpl(UserRepository userRepository, UserTypeRepository userTypeRepository, UserRecoveryCodeRepository recoveryCodeRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.recoveryCodeRepository = recoveryCodeRepository;
@@ -50,10 +50,5 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public Object sendRecoveryCode(String email) {
-        String code = String.format("%4d", new Random().nextInt(10000));
-        recoveryCodeRepository.save(RecoveryCode.builder().code(code).build());
-        return null;
-    }
+   
 }
