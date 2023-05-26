@@ -9,14 +9,16 @@ import org.springframework.stereotype.Service;
 import com.mont.rasmooplus.dto.LoginDto;
 import com.mont.rasmooplus.dto.TokenDto;
 import com.mont.rasmooplus.exception.BadRequestException;
+import com.mont.rasmooplus.model.UserCredentials;
 import com.mont.rasmooplus.service.AuthenticationService;
 import com.mont.rasmooplus.service.TokenService;
+import com.mont.rasmooplus.service.UserDetailsService;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private TokenService tokenService;
@@ -24,9 +26,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @Override
     public TokenDto auth(LoginDto dto) {
         try {
-            UsernamePasswordAuthenticationToken userPassAuth = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
-       Authentication auth = authenticationManager.authenticate(userPassAuth);
-        String token = tokenService.getToken(auth);
+            UserCredentials userCredentials = userDetailsService.loadUserByUsernameAndPass(dto.getUsername(), dto.getPassword());
+
+            String token = tokenService.getToken(userCredentials.getId());
 
         return TokenDto.builder().token(token).type("Bearer").build();
         } catch (Exception e) {

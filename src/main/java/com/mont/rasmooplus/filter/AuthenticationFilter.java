@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.mont.rasmooplus.exception.NotFoundException;
+import com.mont.rasmooplus.model.UserCredentials;
+import com.mont.rasmooplus.repository.UserDetailsRepository;
 import com.mont.rasmooplus.service.TokenService;
 
 
@@ -18,8 +23,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     private TokenService tokenService;
 
-    public AuthenticationFilter(TokenService tokenService) {
+    private UserDetailsRepository userDetailsRepository;
+
+    public AuthenticationFilter(TokenService tokenService, UserDetailsRepository userDetailsRepository) {
         this.tokenService = tokenService;
+        this.userDetailsRepository = userDetailsRepository;
     }
 
 
@@ -34,6 +42,17 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
+    private void authByToken(String token) {
+        Long userId = tokenService.getUserId(token);
+
+        UserCredentials user = userDetailsRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+
+        UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+    
+        SecurityContextHolder.getContext().setAuthentication(userAuth);
+    }
+
 
     private String getBearerToken(HttpServletRequest request) {
 
