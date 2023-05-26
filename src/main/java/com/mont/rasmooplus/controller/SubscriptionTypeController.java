@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,11 +29,13 @@ public class SubscriptionTypeController {
     private SubscriptionTypeService service;
 
     @GetMapping
+    @Cacheable(value = "subscriptionType")
     public ResponseEntity<List<SubscriptionType>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") 
+    @Cacheable(value = "subscriptionType", key="#id")
     public ResponseEntity<SubscriptionType> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
