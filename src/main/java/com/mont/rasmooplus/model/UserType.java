@@ -1,6 +1,5 @@
 package com.mont.rasmooplus.model;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,24 +15,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@Entity
 @Table(name = "user_type")
-
 public class UserType implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_type_id")
+    @Column(name = "user_type_id")
     private Long id;
+
     private String name;
+
     private String description;
+
     @Override
     public String getAuthority() {
         return name;
     }
-
 }
-

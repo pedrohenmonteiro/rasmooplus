@@ -3,10 +3,8 @@ package com.mont.rasmooplus.service.impl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.mont.rasmooplus.model.UserCredentials;
 import com.mont.rasmooplus.service.TokenService;
 
 import io.jsonwebtoken.Claims;
@@ -25,6 +23,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String getToken(Long userId) {
+
         Date today = new Date();
         Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
         return Jwts.builder()
@@ -48,12 +47,11 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public Long getUserId(String token) {
-       Jws<Claims> claims = getClaimsJws(token);
-       return Long.parseLong(claims.getBody().getSubject());
+        Jws<Claims> claims = getClaimsJws(token);
+        return Long.parseLong(claims.getBody().getSubject());
     }
 
     private Jws<Claims> getClaimsJws(String token) {
-        
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
     }
 }

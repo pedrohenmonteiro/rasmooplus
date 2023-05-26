@@ -6,11 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class PaymentDto {
+
     private CreditCardDto creditCard;
+
     private String customerId;
+
     private String orderId;
+
 }

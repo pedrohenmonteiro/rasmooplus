@@ -3,6 +3,7 @@ package com.mont.rasmooplus.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +30,7 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<TokenDto> auth(@RequestBody @Valid LoginDto dto) {
-        return ResponseEntity.ok().body(authenticationService.auth(dto));
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.auth(dto));
     }
 
 }

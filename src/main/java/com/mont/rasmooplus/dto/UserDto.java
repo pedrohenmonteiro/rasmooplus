@@ -7,10 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.usertype.UserType;
 import org.hibernate.validator.constraints.br.CPF;
-
-import com.mont.rasmooplus.model.SubscriptionType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,23 +19,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserDto {
+
     private Long id;
-    @NotBlank
+
+    @NotBlank(message = "valor não pode ser nulo ou vazio")
+    @Size(min = 6, message = "valor mínimo igual a 6 caracteres")
     private String name;
-    @Email
+
+    @Email(message = "inválido")
     private String email;
-    @Size(min = 11)
+
+    @Size(min = 11, message = "valor mínimo igual a 11 dígitos")
     private String phone;
-    @CPF
+
+    @CPF(message = "inválido")
     private String cpf;
 
     private LocalDate dtSubscription = LocalDate.now();
 
-    private LocalDate dtExpiration = LocalDate.now();;
-    
+    private LocalDate dtExpiration = LocalDate.now();
+
     @NotNull
     private Long userTypeId;
 
     private Long subscriptionTypeId;
-}
 
+}

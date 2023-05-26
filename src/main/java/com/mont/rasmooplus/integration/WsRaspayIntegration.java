@@ -1,5 +1,9 @@
 package com.mont.rasmooplus.integration;
 
+import com.mont.rasmooplus.dto.wsraspay.CustomerDto;
+import com.mont.rasmooplus.dto.wsraspay.OrderDto;
+import com.mont.rasmooplus.dto.wsraspay.PaymentDto;
+import com.mont.rasmooplus.integration.WsRaspayIntegration;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -9,23 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.mont.rasmooplus.dto.wsraspay.CustomerDto;
-import com.mont.rasmooplus.dto.wsraspay.OrderDto;
-import com.mont.rasmooplus.dto.wsraspay.PaymentDto;
-
-
 @Component
 public class WsRaspayIntegration {
 
     @Value("${webservices.raspay.host}")
     private String raspayHost;
-
     @Value("${webservices.raspay.v1.customer}")
     private String customerUrl;
-
     @Value("${webservices.raspay.v1.order}")
     private String orderUrl;
-
     @Value("${webservices.raspay.v1.payment}")
     private String paymentUrl;
 
@@ -49,8 +45,6 @@ public class WsRaspayIntegration {
         }
     }
 
-
-
     public OrderDto createOrder(OrderDto dto) {
         try {
             HttpEntity<OrderDto> request = new HttpEntity<>(dto,this.headers);
@@ -60,9 +54,8 @@ public class WsRaspayIntegration {
         } catch (Exception e) {
             throw e;
         }
-
-
     }
+
     public Boolean processPayment(PaymentDto dto) {
         try {
             HttpEntity<PaymentDto> request = new HttpEntity<>(dto,this.headers);

@@ -11,21 +11,28 @@ import com.mont.rasmooplus.repository.UserDetailsRepository;
 import com.mont.rasmooplus.service.UserDetailsService;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserDetailsRepository userDetailsRepository;
 
     @Override
     public UserCredentials loadUserByUsernameAndPass(String username, String pass) {
-         UserCredentials userCredentials = userDetailsRepository.findByUsername(username).orElseThrow(() -> new NotFoundException("User not found"));
-         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-         if(encoder.matches(pass, userCredentials.getPassword())) {
+
+        var userCredentialsOpt = userDetailsRepository.findByUsername(username);
+
+        if (userCredentialsOpt.isEmpty()) {
+            throw new NotFoundException("Usuário não encontrado");
+        }
+
+        UserCredentials userCredentials = userCredentialsOpt.get();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (encoder.matches(pass, userCredentials.getPassword())) {
             return userCredentials;
-         }
-         throw new BadRequestException("Invalid user or password");
+        }
+
+        throw new BadRequestException("Usuário ou senha inválido");
     }
-
-  
-
-    
 }

@@ -3,16 +3,18 @@ package com.mont.rasmooplus.dto;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginDto {
-    @NotBlank
+
+    @NotBlank(message = "atributo obrigatório")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "atributo obrigatório")
     private String password;
+
 }

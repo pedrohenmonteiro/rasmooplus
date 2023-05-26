@@ -17,6 +17,5 @@ public class MailIntegration {
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(message);
         javaMailSender.send(simpleMailMessage);
-
     }
 }

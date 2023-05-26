@@ -10,27 +10,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
-@Entity
-@Table(name = "subscriptions_type")
 @Data
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class SubscriptionType  implements Serializable{
+@Table(name = "subscriptions_type")
+@Entity
+public class SubscriptionType extends RepresentationModel<SubscriptionType> implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subscriptions_type_id")
     private Long id;
+
     private String name;
+
     @Column(name = "access_months")
     private Long accessMonths;
+
     private BigDecimal price;
-    @Column(name = "product_key", unique = true)
+
+    @Column(name = "product_key",unique = true)
     private String productKey;
+
+
 }
