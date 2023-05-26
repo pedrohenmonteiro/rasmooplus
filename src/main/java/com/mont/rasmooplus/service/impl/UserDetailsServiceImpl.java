@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ import com.mont.rasmooplus.service.UserDetailsService;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    @Value("${webservices.rasplus.redis.recoverycode.timeout}")
+    private Long timeoutValue;
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
@@ -78,7 +82,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         UserRecoveryCode userRecoveryCode = userRecoveryCodeOpt.get();
-        if(recoveryCode.equals(userRecoveryCode.getCode())) {
+
+        LocalDateTime timeout = userRecoveryCode.getCreationDate().plusMinutes(timeoutValue);
+        LocalDateTime now = LocalDateTime.now();
+
+        if(recoveryCode.equals(userRecoveryCode.getCode()) && now.isBefore(timeout) ) {
             return true;
         }
         return false;
