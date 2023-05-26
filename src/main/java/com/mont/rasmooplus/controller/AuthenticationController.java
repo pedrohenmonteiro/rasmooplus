@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mont.rasmooplus.dto.LoginDto;
 import com.mont.rasmooplus.dto.TokenDto;
+import com.mont.rasmooplus.model.redis.UserRecoveryCode;
 import com.mont.rasmooplus.service.AuthenticationService;
+import com.mont.rasmooplus.service.UserDetailsService;
 
 
 
@@ -23,9 +25,18 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @PostMapping
     public ResponseEntity<TokenDto> auth(@RequestBody @Valid LoginDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(authenticationService.auth(dto));
+    }
+    
+    @PostMapping("/recovery-code/send")
+    public ResponseEntity<Void> sendRecoveryCode(@RequestBody @Valid UserRecoveryCode dto) {
+        userDetailsService.sendRecoveryCode(dto.getEmail());
+        return ResponseEntity.noContent().build();
     }
 
 }
