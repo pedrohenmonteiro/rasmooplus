@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.mont.rasmooplus.filter.AuthenticationFilter;
-import com.mont.rasmooplus.repository.UserDetailsRepository;
+import com.mont.rasmooplus.repository.jpa.UserDetailsRepository;
 import com.mont.rasmooplus.service.TokenService;
 
 @EnableWebSecurity

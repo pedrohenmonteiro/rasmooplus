@@ -2,7 +2,7 @@ package com.mont.rasmooplus.controller;
 
 import java.util.List;
 
-import com.mont.rasmooplus.model.UserType;
+import com.mont.rasmooplus.model.jpa.UserType;
 import com.mont.rasmooplus.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

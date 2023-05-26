@@ -1,4 +1,4 @@
-package com.mont.rasmooplus.model;
+package com.mont.rasmooplus.model.jpa;
 
 import java.util.ArrayList;
 import java.util.Collection;

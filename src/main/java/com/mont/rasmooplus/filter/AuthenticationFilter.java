@@ -1,8 +1,8 @@
 package com.mont.rasmooplus.filter;
 
 import com.mont.rasmooplus.exception.NotFoundException;
-import com.mont.rasmooplus.model.UserCredentials;
-import com.mont.rasmooplus.repository.UserDetailsRepository;
+import com.mont.rasmooplus.model.jpa.UserCredentials;
+import com.mont.rasmooplus.repository.jpa.UserDetailsRepository;
 import com.mont.rasmooplus.service.TokenService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

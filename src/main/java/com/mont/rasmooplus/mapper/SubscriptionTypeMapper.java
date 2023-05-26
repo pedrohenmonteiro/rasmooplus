@@ -1,7 +1,7 @@
 package com.mont.rasmooplus.mapper;
 
 import com.mont.rasmooplus.dto.SubscriptionTypeDto;
-import com.mont.rasmooplus.model.SubscriptionType;
+import com.mont.rasmooplus.model.jpa.SubscriptionType;
 
 public class SubscriptionTypeMapper {
 

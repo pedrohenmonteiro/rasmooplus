@@ -14,8 +14,8 @@ import com.mont.rasmooplus.dto.SubscriptionTypeDto;
 import com.mont.rasmooplus.exception.BadRequestException;
 import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.mapper.SubscriptionTypeMapper;
-import com.mont.rasmooplus.model.SubscriptionType;
-import com.mont.rasmooplus.repository.SubscriptionTypeRepository;
+import com.mont.rasmooplus.model.jpa.SubscriptionType;
+import com.mont.rasmooplus.repository.jpa.SubscriptionTypeRepository;
 import com.mont.rasmooplus.service.SubscriptionTypeService;
 
 @Service

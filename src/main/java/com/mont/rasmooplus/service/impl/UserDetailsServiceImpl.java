@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.mont.rasmooplus.exception.BadRequestException;
 import com.mont.rasmooplus.exception.NotFoundException;
-import com.mont.rasmooplus.model.UserCredentials;
-import com.mont.rasmooplus.repository.UserDetailsRepository;
+import com.mont.rasmooplus.model.jpa.UserCredentials;
+import com.mont.rasmooplus.repository.jpa.UserDetailsRepository;
 import com.mont.rasmooplus.service.UserDetailsService;
 
 @Service

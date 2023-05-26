@@ -1,4 +1,4 @@
-package com.mont.rasmooplus.model;
+package com.mont.rasmooplus.model.jpa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

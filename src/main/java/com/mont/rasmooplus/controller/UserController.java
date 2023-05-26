@@ -3,7 +3,7 @@ package com.mont.rasmooplus.controller;
 import javax.validation.Valid;
 
 import com.mont.rasmooplus.dto.UserDto;
-import com.mont.rasmooplus.model.User;
+import com.mont.rasmooplus.model.jpa.User;
 import com.mont.rasmooplus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

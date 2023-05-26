@@ -1,8 +1,8 @@
 package com.mont.rasmooplus.mapper;
 
 import com.mont.rasmooplus.dto.UserPaymentInfoDto;
-import com.mont.rasmooplus.model.User;
-import com.mont.rasmooplus.model.UserPaymentInfo;
+import com.mont.rasmooplus.model.jpa.User;
+import com.mont.rasmooplus.model.jpa.UserPaymentInfo;
 
 public class UserPaymentInfoMapper {
 

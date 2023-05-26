@@ -1,6 +1,6 @@
 package com.mont.rasmooplus.service;
 
-import com.mont.rasmooplus.model.UserCredentials;
+import com.mont.rasmooplus.model.jpa.UserCredentials;
 
 public interface UserDetailsService {
     

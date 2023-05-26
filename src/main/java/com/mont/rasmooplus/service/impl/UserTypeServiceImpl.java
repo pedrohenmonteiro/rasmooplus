@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mont.rasmooplus.model.UserType;
-import com.mont.rasmooplus.repository.UserTypeRepository;
+import com.mont.rasmooplus.model.jpa.UserType;
+import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
 import com.mont.rasmooplus.service.UserTypeService;
 
 @Service

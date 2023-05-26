@@ -8,10 +8,10 @@ import com.mont.rasmooplus.dto.UserDto;
 import com.mont.rasmooplus.exception.BadRequestException;
 import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.mapper.UserMapper;
-import com.mont.rasmooplus.model.User;
-import com.mont.rasmooplus.model.UserType;
-import com.mont.rasmooplus.repository.UserRepository;
-import com.mont.rasmooplus.repository.UserTypeRepository;
+import com.mont.rasmooplus.model.jpa.User;
+import com.mont.rasmooplus.model.jpa.UserType;
+import com.mont.rasmooplus.repository.jpa.UserRepository;
+import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
 import com.mont.rasmooplus.service.UserService;
 
 @Service

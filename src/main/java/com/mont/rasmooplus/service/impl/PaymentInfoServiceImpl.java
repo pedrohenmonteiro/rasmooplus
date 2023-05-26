@@ -20,14 +20,14 @@ import com.mont.rasmooplus.mapper.wsraspay.CreditCardMapper;
 import com.mont.rasmooplus.mapper.wsraspay.CustomerMapper;
 import com.mont.rasmooplus.mapper.wsraspay.OrderMapper;
 import com.mont.rasmooplus.mapper.wsraspay.PaymentMapper;
-import com.mont.rasmooplus.model.User;
-import com.mont.rasmooplus.model.UserCredentials;
-import com.mont.rasmooplus.model.UserPaymentInfo;
-import com.mont.rasmooplus.repository.SubscriptionTypeRepository;
-import com.mont.rasmooplus.repository.UserDetailsRepository;
-import com.mont.rasmooplus.repository.UserPaymentInfoRepository;
-import com.mont.rasmooplus.repository.UserRepository;
-import com.mont.rasmooplus.repository.UserTypeRepository;
+import com.mont.rasmooplus.model.jpa.User;
+import com.mont.rasmooplus.model.jpa.UserCredentials;
+import com.mont.rasmooplus.model.jpa.UserPaymentInfo;
+import com.mont.rasmooplus.repository.jpa.SubscriptionTypeRepository;
+import com.mont.rasmooplus.repository.jpa.UserDetailsRepository;
+import com.mont.rasmooplus.repository.jpa.UserPaymentInfoRepository;
+import com.mont.rasmooplus.repository.jpa.UserRepository;
+import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
 import com.mont.rasmooplus.service.PaymentInfoService;
 
 

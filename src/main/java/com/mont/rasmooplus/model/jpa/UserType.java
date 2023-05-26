@@ -1,4 +1,4 @@
-package com.mont.rasmooplus.model;
+package com.mont.rasmooplus.model.jpa;
 
 
 import javax.persistence.Column;

@@ -1,7 +1,7 @@
 package com.mont.rasmooplus.mapper.wsraspay;
 
 import com.mont.rasmooplus.dto.wsraspay.CustomerDto;
-import com.mont.rasmooplus.model.User;
+import com.mont.rasmooplus.model.jpa.User;
 
 public class CustomerMapper {
 
