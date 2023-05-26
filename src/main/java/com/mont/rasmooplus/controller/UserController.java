@@ -1,6 +1,7 @@
 package com.mont.rasmooplus.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 
 import com.mont.rasmooplus.dto.UserDto;
 import com.mont.rasmooplus.model.jpa.User;
@@ -25,5 +26,12 @@ public class UserController {
     public ResponseEntity<User> create(@Valid @RequestBody UserDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
     }
+
+    @PostMapping("/send-recovery-code")
+    public ResponseEntity<?> sendRecoveryCode(@RequestBody Object email) {
+        
+        return ResponseEntity.ok().body(userService.sendRecoveryCode(null));
+    }
+    
 
 }
