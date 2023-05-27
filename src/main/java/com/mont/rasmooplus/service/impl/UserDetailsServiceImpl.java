@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mont.rasmooplus.dto.UserDetailsDto;
 import com.mont.rasmooplus.exception.BadRequestException;
 import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.integration.MailIntegration;
@@ -21,7 +22,7 @@ import com.mont.rasmooplus.service.UserDetailsService;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Value("${webservices.rasplus.redis.recoverycode.timeout}")
-    private Long timeoutValue;
+    private String recoveryCodeTimeout;
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
@@ -83,7 +84,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserRecoveryCode userRecoveryCode = userRecoveryCodeOpt.get();
 
-        LocalDateTime timeout = userRecoveryCode.getCreationDate().plusMinutes(timeoutValue);
+        LocalDateTime timeout = userRecoveryCode.getCreationDate().plusMinutes(Long.parseLong(recoveryCodeTimeout));
         LocalDateTime now = LocalDateTime.now();
 
         if(recoveryCode.equals(userRecoveryCode.getCode()) && now.isBefore(timeout) ) {
@@ -92,5 +93,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return false;
     }
 
-    
-}
+    @Override
+    public void updatePasswordByRecoveryCode(UserDetailsDto dto) {
+        if(recoveryCodeIsValid(dto.getRecoveryCode(), dto.getEmail())) {
+            var userDetails = userDetailsRepository.findByUsername(dto.getEmail());
+            UserCredentials userCredentials = userDetails.get();
+
+            userCredentials.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
+            userDetailsRepository.save(userCredentials);
+        
+        }
+        }
+    }
+
