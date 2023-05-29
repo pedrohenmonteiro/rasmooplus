@@ -3,7 +3,6 @@ package com.mont.rasmooplus.service.impl;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mont.rasmooplus.dto.PaymentProcessDto;
@@ -29,6 +28,7 @@ import com.mont.rasmooplus.repository.jpa.UserPaymentInfoRepository;
 import com.mont.rasmooplus.repository.jpa.UserRepository;
 import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
 import com.mont.rasmooplus.service.PaymentInfoService;
+import com.mont.rasmooplus.utils.PasswordUtils;
 
 
 @Service
@@ -84,7 +84,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
             if (userTypeOpt.isEmpty()) {
                 throw new NotFoundException("UserType não encontrado");
             }
-            UserCredentials userCredentials = new UserCredentials(null, user.getEmail(), new BCryptPasswordEncoder().encode(defaultPass), userTypeOpt.get());
+            UserCredentials userCredentials = new UserCredentials(null, user.getEmail(), PasswordUtils.encode(defaultPass), userTypeOpt.get());
             userDetailsRepository.save(userCredentials);
 
             var subscriptionTypeOpt = subscriptionTypeRepository.findByProductKey(dto.getProductKey());

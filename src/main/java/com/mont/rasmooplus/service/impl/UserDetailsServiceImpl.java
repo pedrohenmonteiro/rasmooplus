@@ -5,7 +5,6 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mont.rasmooplus.dto.UserDetailsDto;
@@ -17,6 +16,7 @@ import com.mont.rasmooplus.model.redis.UserRecoveryCode;
 import com.mont.rasmooplus.repository.jpa.UserDetailsRepository;
 import com.mont.rasmooplus.repository.redis.UserRecoveryCodeRepository;
 import com.mont.rasmooplus.service.UserDetailsService;
+import com.mont.rasmooplus.utils.PasswordUtils;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -43,9 +43,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserCredentials userCredentials = userCredentialsOpt.get();
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        
 
-        if (encoder.matches(pass, userCredentials.getPassword())) {
+        if (PasswordUtils.matches(pass, userCredentials.getPassword())) {
             return userCredentials;
         }
 
@@ -99,7 +99,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             var userDetails = userDetailsRepository.findByUsername(dto.getEmail());
             UserCredentials userCredentials = userDetails.get();
 
-            userCredentials.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
+            userCredentials.setPassword(PasswordUtils.encode(dto.getPassword()));
             userDetailsRepository.save(userCredentials);
         
         }
