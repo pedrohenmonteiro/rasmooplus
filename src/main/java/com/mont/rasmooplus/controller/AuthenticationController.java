@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mont.rasmooplus.dto.LoginDto;
 import com.mont.rasmooplus.dto.TokenDto;
+import com.mont.rasmooplus.dto.UserDetailsDto;
 import com.mont.rasmooplus.model.redis.UserRecoveryCode;
 import com.mont.rasmooplus.service.AuthenticationService;
 import com.mont.rasmooplus.service.UserDetailsService;
@@ -42,8 +44,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/recovery-code/")
-    public ResponseEntity<?> isRecoveryCodeValid(@RequestParam String recoveryCode, @RequestParam String email) {
+    public ResponseEntity<Boolean> isRecoveryCodeValid(@RequestParam String recoveryCode, @RequestParam String email) {
         return ResponseEntity.ok().body(userDetailsService.recoveryCodeIsValid(recoveryCode, email));
+    }
+
+    @PatchMapping("/recovery-code/password")
+    public ResponseEntity<Void> sendRecoveryCode(@RequestBody @Valid UserDetailsDto dto) {
+        userDetailsService.updatePasswordByRecoveryCode(dto);
+        return ResponseEntity.noContent().build();
     }
 
 }
