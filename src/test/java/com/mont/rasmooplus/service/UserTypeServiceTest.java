@@ -6,18 +6,23 @@ import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.mont.rasmooplus.model.jpa.UserType;
+import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
+import com.mont.rasmooplus.service.impl.UserTypeServiceImpl;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserTypeServiceTest {
-    
-    @MockBean
-    private UserTypeService userTypeService;
+    @Mock    
+    private UserTypeRepository userTypeRepository;
+
+    @InjectMocks
+    private UserTypeServiceImpl userTypeService;
 
     @Test
     void findAll() {
@@ -27,7 +32,7 @@ class UserTypeServiceTest {
         var userType2 = new UserType(2L, "Administrador", "Administrador da plataforma");
         
         userTypeList.addAll(Arrays.asList(userType1, userType2));
-        Mockito.when(userTypeService.findAll()).thenReturn(userTypeList);
+        Mockito.when(userTypeRepository.findAll()).thenReturn(userTypeList);
 
        Assertions.assertThat(userTypeService.findAll()).isNotEmpty(); 
     }
