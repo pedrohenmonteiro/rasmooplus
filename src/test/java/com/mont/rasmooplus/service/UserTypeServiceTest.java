@@ -25,7 +25,7 @@ class UserTypeServiceTest {
     private UserTypeServiceImpl userTypeService;
 
     @Test
-    void findAll() {
+    void given_findAll_when_thereAreDataInDatabase_then_return_allDatas() {
         List<UserType> userTypeList = new ArrayList<>();
         
         var userType1 = new UserType(1L, "Professor", "Professor da plataforma");
@@ -34,7 +34,7 @@ class UserTypeServiceTest {
         userTypeList.addAll(Arrays.asList(userType1, userType2));
         Mockito.when(userTypeRepository.findAll()).thenReturn(userTypeList);
 
-       Assertions.assertThat(userTypeService.findAll()).isNotEmpty(); 
+       Assertions.assertThat(userTypeService.findAll()).hasSize(2); 
     }
 
 }

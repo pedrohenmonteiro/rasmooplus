@@ -1,7 +1,6 @@
 package com.mont.rasmooplus.service.impl;
 
 import java.util.Objects;
-import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
@@ -11,10 +10,8 @@ import com.mont.rasmooplus.exception.NotFoundException;
 import com.mont.rasmooplus.mapper.UserMapper;
 import com.mont.rasmooplus.model.jpa.User;
 import com.mont.rasmooplus.model.jpa.UserType;
-import com.mont.rasmooplus.model.redis.UserRecoveryCode;
 import com.mont.rasmooplus.repository.jpa.UserRepository;
 import com.mont.rasmooplus.repository.jpa.UserTypeRepository;
-import com.mont.rasmooplus.repository.redis.UserRecoveryCodeRepository;
 import com.mont.rasmooplus.service.UserService;
 
 @Service
@@ -24,12 +21,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserTypeRepository userTypeRepository;
 
-    private final UserRecoveryCodeRepository recoveryCodeRepository;
 
-    UserServiceImpl(UserRepository userRepository, UserTypeRepository userTypeRepository, UserRecoveryCodeRepository recoveryCodeRepository) {
+    UserServiceImpl(UserRepository userRepository, UserTypeRepository userTypeRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
-        this.recoveryCodeRepository = recoveryCodeRepository;
     }
 
     @Override
